@@ -35,7 +35,6 @@ pub fn disassembler8080(binary: Vec<u8>) {
                 println!("RLC");
                 i += 1;
             }
-            0x08 => println!("-"),
             0x09 => {
                 println!("DAD   B");
                 i += 1;
@@ -64,9 +63,8 @@ pub fn disassembler8080(binary: Vec<u8>) {
                 println!("RRC");
                 i += 1;
             }
-            0x10 => println!("-"),
             0x11 => {
-                println!("LXI   D, **");
+                println!("LXI   D,{:x?}", binary[i + 2]);
                 i += 2;
             }
             0x12 => {
@@ -93,7 +91,6 @@ pub fn disassembler8080(binary: Vec<u8>) {
                 println!("RAL");
                 i += 1;
             }
-            0x18 => println!("-"),
             0x19 => {
                 println!("DAD   D");
                 i += 1;
@@ -115,7 +112,7 @@ pub fn disassembler8080(binary: Vec<u8>) {
                 i += 1;
             }
             0x1e => {
-                println!("MVI   E,{:x?}", binary[i + i]);
+                println!("MVI   E,{:x?}", binary[i + 1]);
                 i += 2;
             }
             0x1f => {
@@ -154,7 +151,6 @@ pub fn disassembler8080(binary: Vec<u8>) {
                 println!("DAA");
                 i += 1;
             }
-            0x28 => println!("-"),
             0x29 => {
                 println!("DAD   H");
                 i += 1;
@@ -215,7 +211,6 @@ pub fn disassembler8080(binary: Vec<u8>) {
                 println!("STC");
                 i += 1;
             }
-            0x38 => println!("-"),
             0x39 => {
                 println!("DAD   SP");
                 i += 1;
@@ -800,7 +795,6 @@ pub fn disassembler8080(binary: Vec<u8>) {
                 println!("JZ    ADR,{:x?}{:x?}", binary[i + 2], binary[i + 1]);
                 i += 3;
             }
-            0xcb => println!("-"),
             0xcc => {
                 println!("CZ    ADR,{:x?}{:x?}", binary[i + 2], binary[i + 1]);
                 i += 3;
@@ -853,7 +847,6 @@ pub fn disassembler8080(binary: Vec<u8>) {
                 println!("RC");
                 i += 1;
             }
-            0xd9 => println!("-"),
             0xda => {
                 println!("JC    ADR,{:x?}{:x?}", binary[i + 2], binary[i + 1]);
                 i += 3;
@@ -866,7 +859,6 @@ pub fn disassembler8080(binary: Vec<u8>) {
                 println!("CC    ADR,{:x?}{:x?}", binary[i + 2], binary[i + 1]);
                 i += 3;
             }
-            0xdd => println!("-"),
             0xde => {
                 println!("SBI  {:x?}", binary[i + 1]);
                 i += 2;
@@ -927,7 +919,6 @@ pub fn disassembler8080(binary: Vec<u8>) {
                 println!("CPE   ADR,{:x?}{:x?}", binary[i + 2], binary[i + 1]);
                 i += 3;
             }
-            0xed => println!("-"),
             0xee => {
                 println!("XRI   {:x?}", binary[i + 1]);
                 i += 2;
@@ -988,13 +979,16 @@ pub fn disassembler8080(binary: Vec<u8>) {
                 println!("CM    ADR,{:x?}{:x?}", binary[i + 2], binary[i + 1]);
                 i += 3;
             }
-            0xfd => println!("-"),
             0xfe => {
                 println!("CPI   {:x?}", binary[i + 1]);
                 i += 2;
             }
             0xff => {
                 println!("RST");
+                i += 1;
+            }
+            _ => {
+                println!("-");
                 i += 1;
             }
         }
